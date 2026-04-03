@@ -1,0 +1,5 @@
+
+
+
+
+Para los asteroides, Lilith y Quirón utilizo las efeméridas suizas descargadas de https://github.com/astrorigin/pyswisseph?tab=readme-ov-file
