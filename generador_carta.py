@@ -99,18 +99,12 @@ TRADUCCION_SIGNOS = {
 TRADUCCION_PLANETAS = {
     'Sun': 'sol', 'Moon': 'luna', 'Mercury': 'mercurio', 
     'Venus': 'venus', 'Mars': 'marte', 'Jupiter': 'jupiter', 
-    'Saturn': 'saturno', 'North Node': 'nodo_norte',
+    'Saturn': 'saturno', 'Uranus': 'urano', 'Neptune': 'neptuno',
+    'Pluto': 'pluton', 'North Node': 'nodo_norte',
+    'South Node': 'nodo_sur',
     'Chiron': 'quiron', 'Lilith': 'lilith',
     'Ceres': 'ceres', 'Pallas': 'pallas',
     'Juno': 'juno', 'Vesta': 'vesta'
-}
-
-# Signos opuestos para calcular el Nodo Sur manualmente
-OPUESTOS = {
-    'aries': 'libra', 'taurus': 'scorpio', 'gemini': 'sagittarius',
-    'cancer': 'capricorn', 'leo': 'aquarius', 'virgo': 'pisces',
-    'libra': 'aries', 'scorpio': 'taurus', 'sagittarius': 'gemini',
-    'capricorn': 'cancer', 'aquarius': 'leo', 'pisces': 'virgo'
 }
 
 
@@ -119,16 +113,27 @@ OPUESTOS = {
 def obtener_nombre_aspecto_manual(distancia):
     """Calcula aspectos por distancia en grados (con un margen de error/orbe)."""
     # Orbe de 8 grados para conjunción y oposición, 6 para el resto
-    if distancia < 8: return 'conjuncion'
-    if 172 < distancia < 188: return 'oposicion'
-    if 84 < distancia < 96: return 'cuadratura'
-    if 114 < distancia < 126: return 'trigono'
-    if 56 < distancia < 64: return 'sextil'
+    if distancia < 6: return 'conjuncion'
+    if 177 < distancia < 183: return 'oposicion'
+    if 87 < distancia < 93: return 'cuadratura'
+    if 117 < distancia < 123: return 'trigono'
+    if 57 < distancia < 63: return 'sextil'
     return None
 
 
+def longitud_entre(valor, inicio, fin):
+    if inicio <= fin:
+        return inicio <= valor < fin
+    return valor >= inicio or valor < fin
 
 
+def obtener_casa_planeta(planeta, carta):
+    for i in range(1, 13):
+        actual = carta.get(f'House{i}')
+        siguiente = carta.get(f'House{1 if i == 12 else i + 1}')
+        if longitud_entre(planeta.lon, actual.lon, siguiente.lon):
+            return i
+    return 12
 
 
 def generar_informe_final(carta, biblioteca):
@@ -151,33 +156,30 @@ def generar_informe_final(carta, biblioteca):
     lineas.append("--- POSICIONES DE LOS PLANETAS ---")
     
     # IDs numéricos de la Swiss Ephemeris:
-    # 0:Sol, 1:Luna, 2:Mercurio, 3:Venus, 4:Marte, 5:Jupiter, 6:Saturno, 10:NodoN
+    # 0:Sol, 1:Luna, 2:Mercurio, 3:Venus, 4:Marte, 5:Jupiter, 6:Saturno,
+    # 7:Urano, 8:Neptuno, 9:Pluton, 10:NodoN, 11:NodoS
     # 15:Lilith, 17:Quiron, 18:Ceres, 19:Pallas, 20:Juno, 21:Vesta
     planetas_a_calcular = [
-        (const.SUN, 0), (const.MOON, 1), (const.MERCURY, 2), 
-        (const.VENUS, 3), (const.MARS, 4), (const.JUPITER, 5), 
-        (const.SATURN, 6), (const.NORTH_NODE, 10),
-        ('Chiron', 17), ('Lilith', 15), ('Ceres', 18), 
+        (const.SUN, 0), (const.MOON, 1), (const.MERCURY, 2),
+        (const.VENUS, 3), (const.MARS, 4), (const.JUPITER, 5),
+        (const.SATURN, 6), (const.URANUS, 7), (const.NEPTUNE, 8),
+        (const.PLUTO, 9), (const.NORTH_NODE, 10),
+        ('Chiron', 17), ('Lilith', 15), ('Ceres', 18),
         ('Pallas', 19), ('Juno', 20), ('Vesta', 21)
     ]
-    
+
     objetos_planetas = []
     jd = carta.date.jd
 
     for p_id, swe_id in planetas_a_calcular:
         p = None
         try:
-            # 1. Intentar obtener planetas ESTÁNDAR mediante flatlib
-            if swe_id <= 10:
+            if swe_id in (0, 1, 2, 3, 4, 5, 6, 10):
                 p = carta.get(p_id)
-            
-            # 2. Si es un ASTEROIDE o flatlib falla, forzamos Swiss Ephemeris
+
             if p is None:
-                # Calculamos posición
                 res = swe.calc_ut(jd, swe_id, 2)
-                
-                # EXTRACCIÓN TOTAL (Recursiva)
-                # Esta función busca el primer número dentro de cualquier estructura
+
                 def extraer_primer_numero(dato):
                     if isinstance(dato, (tuple, list)):
                         return extraer_primer_numero(dato[0])
@@ -186,15 +188,15 @@ def generar_informe_final(carta, biblioteca):
                 try:
                     lon_pura = float(extraer_primer_numero(res))
                 except Exception as e:
-                    print(f"⚠️ Error fatal convirtiendo dato en {p_id}: {e}")
+                    print(f"Error fatal convirtiendo dato en {p_id}: {e}")
                     continue
-                
+
                 from flatlib.object import GenericObject
                 nombres_signos = [
                     'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
                     'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
                 ]
-                
+
                 p = GenericObject()
                 p.id = str(p_id)
                 p.lon = lon_pura
@@ -203,49 +205,52 @@ def generar_informe_final(carta, biblioteca):
 
             if p:
                 objetos_planetas.append(p)
-                
+
         except Exception as e:
-            # Imprime el error exacto para saber si es falta de archivos .se1 o de código
-            print(f"⚠️ Error en {p_id} (ID: {swe_id}): {e}")
+            print(f"Error en {p_id} (ID: {swe_id}): {e}")
             continue
-            
-      
-        
+
         id_real = getattr(p, 'id', str(p_id))
         n_es = TRADUCCION_PLANETAS.get(id_real, str(id_real).lower())
-        sig_en_libreria = p.sign.lower() 
+        sig_en_libreria = p.sign.lower()
         sig_es = TRADUCCION_SIGNOS.get(sig_en_libreria, sig_en_libreria)
-        
-        # CÁLCULO DE CASA
-        num_casa = "1"
-        for i in range(1, 13):
-            c_actual = carta.get(f'House{i}')
-            sig_idx = 1 if i == 12 else i + 1
-            c_siguiente = carta.get(f'House{sig_idx}')
-            if c_actual.lon <= p.lon < c_siguiente.lon:
-                num_casa = str(i)
-                break
-        
+
+        num_casa = str(obtener_casa_planeta(p, carta))
+
         if id_real == 'North Node':
-            lineas.append("--- EJE DEL DESTINO (MISIÓN DE VIDA) ---")
-            txt_nn = biblioteca['planetas_signos'].get(f"nodo_norte_en_{sig_es}", f"Misión en {sig_es.capitalize()}.")
+            lineas.append("--- EJE DEL DESTINO (MISION DE VIDA) ---")
+            txt_nn = biblioteca['planetas_signos'].get(f"nodo_norte_en_{sig_es}", f"Mision en {sig_es.capitalize()}.")
             lineas.append(f"* NODO NORTE en {sig_es.capitalize()} (Casa {num_casa})")
-            lineas.append(f"  Camino de evolución: {txt_nn}")
-            
-            sig_sur = OPUESTOS.get(sig_es, sig_es)
-            num_casa_sur = int(num_casa) + 6
-            if num_casa_sur > 12: num_casa_sur -= 12
-            
-            lineas.append(f"* NODO SUR en {sig_sur.capitalize()} (Casa {num_casa_sur})")
-            lineas.append(f"  Zona de confort y talentos innatos: Lo que ya dominas pero debes transformar.\n")
+            lineas.append(f"  Camino de evolucion: {txt_nn}")
+
+            from flatlib.object import GenericObject
+            nombres_signos = [
+                'Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo',
+                'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'
+            ]
+            lon_sur = (p.lon + 180) % 360
+            sn = GenericObject()
+            sn.id = 'South Node'
+            sn.lon = lon_sur
+            sn.sign = nombres_signos[int(lon_sur / 30)]
+            sn.signlon = lon_sur % 30
+            objetos_planetas.append(sn)
+
+            sig_sn_en = sn.sign.lower()
+            sig_sn_es = TRADUCCION_SIGNOS.get(sig_sn_en, sig_sn_en)
+            casa_sn = str(obtener_casa_planeta(sn, carta))
+            txt_sn = biblioteca['planetas_signos'].get(f"nodo_sur_en_{sig_sn_es}", f"Talento innato en {sig_sn_es.capitalize()}.")
+            lineas.append(f"* NODO SUR en {sig_sn_es.capitalize()} (Casa {casa_sn})")
+            lineas.append(f"  Zona de confort: {txt_sn}\n")
+
         else:
             txt_sig = biblioteca['planetas_signos'].get(f"{n_es}_en_{sig_es}", "")
             txt_casa = biblioteca['planetas_casas'].get(f"{n_es}_en_casa_{num_casa}", "")
-            
+
             lineas.append(f"* {n_es.upper()} en {sig_es.capitalize()} (Casa {num_casa})")
-            if txt_sig: 
+            if txt_sig:
                 lineas.append(f"  {txt_sig}")
-            if txt_casa and f"Influencia en la casa {num_casa}" not in txt_casa:
+            if txt_casa and "Influencia en la casa" not in txt_casa:
                 lineas.append(f"  {txt_casa}")
             lineas.append("")
 

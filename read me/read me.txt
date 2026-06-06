@@ -1,4 +1,6 @@
+Dependencias:
 
+- Creé un entorno en conda utilizando python 3.11 para instalar de forma correcta flatlib con pip y pwisseph con conda install -c conda-forge pyswisseph
 
 
 

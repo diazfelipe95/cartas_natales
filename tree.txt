@@ -1,0 +1,20 @@
+.
+├── Carta_Natal_LuisAsteroides11.txt
+├── Carta_Natal_LuisDiaz.txt
+├── datos
+│   ├── aspectos.json
+│   ├── casas_signos.json
+│   ├── planetas_casas.json
+│   └── planetas_signos.json
+├── efemerides
+│   ├── estructura.txt
+│   ├── seas_18.se1
+│   ├── sefstars.txt
+│   ├── semo_18.se1
+│   └── sepl_18.se1
+├── generador_carta.py
+├── read me
+│   └── read me.txt
+└── tree.txt
+
+4 directories, 14 files
