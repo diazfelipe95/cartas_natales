@@ -1,0 +1,79 @@
+2026-06-07 08:36:18,436 | INFO | Backup: datos/planetas_signos_goodman.json -> datos/backup_pre_curacion_20260607_083618/
+2026-06-07 08:36:18,438 | INFO | Backup: datos/aspectos_tompkins.json -> datos/backup_pre_curacion_20260607_083618/
+2026-06-07 08:36:18,439 | INFO | Backup: datos/angulos_signos.json -> datos/backup_pre_curacion_20260607_083618/
+2026-06-07 08:36:18,439 | INFO | Backup: datos/casas_signos.json -> datos/backup_pre_curacion_20260607_083618/
+2026-06-07 08:36:18,440 | INFO | Backup: datos/planetas_signos.json -> datos/backup_pre_curacion_20260607_083618/
+2026-06-07 08:36:18,440 | INFO | Backup: datos/planetas_casas.json -> datos/backup_pre_curacion_20260607_083618/
+2026-06-07 08:36:18,440 | INFO | 
+============================================================
+2026-06-07 08:36:18,440 | INFO | [goodman] modo=expandir archivo=datos/planetas_signos_goodman.json
+2026-06-07 08:36:18,440 | INFO | ============================================================
+2026-06-07 08:36:18,442 | INFO |   Modo batch: 2 entradas
+2026-06-07 08:36:18,442 | INFO |   [1/2] sol_en_aries ... 
+2026-06-07 08:36:21,583 | INFO |     OK (2522 chars)
+2026-06-07 08:36:24,584 | INFO |   [2/2] ascendente_en_aries ... 
+2026-06-07 08:37:03,764 | INFO |     OK (1882 chars)
+2026-06-07 08:37:06,767 | INFO |   -> Guardado: datos/planetas_signos_goodman.json
+2026-06-07 08:37:06,768 | INFO |   -> Resultados: 2 OK, 0 errores, 0 reintentos
+2026-06-07 08:37:06,768 | INFO | 
+============================================================
+2026-06-07 08:37:06,768 | INFO | [tompkins] modo=expandir archivo=datos/aspectos_tompkins.json
+2026-06-07 08:37:06,768 | INFO | ============================================================
+2026-06-07 08:37:06,776 | INFO |   Modo batch: 2 entradas
+2026-06-07 08:37:06,777 | INFO |   [1/2] sol_conjuncion_luna ... 
+2026-06-07 08:37:34,182 | INFO |     OK (2098 chars)
+2026-06-07 08:37:37,182 | INFO |   [2/2] sol_sextil_luna ... 
+2026-06-07 08:38:10,939 | INFO |     OK (2154 chars)
+2026-06-07 08:38:13,955 | INFO |   -> Guardado: datos/aspectos_tompkins.json
+2026-06-07 08:38:13,955 | INFO |   -> Resultados: 2 OK, 0 errores, 0 reintentos
+2026-06-07 08:38:13,955 | INFO | 
+============================================================
+2026-06-07 08:38:13,955 | INFO | [angulos] modo=generar archivo=datos/angulos_signos.json
+2026-06-07 08:38:13,955 | INFO | ============================================================
+2026-06-07 08:38:13,956 | INFO |   Modo batch: 2 entradas
+2026-06-07 08:38:13,956 | INFO |   [1/2] ascendente_en_aries ... 
+2026-06-07 08:38:15,548 | INFO |     OK (1713 chars)
+2026-06-07 08:38:18,548 | INFO |   [2/2] ascendente_en_tauro ... 
+2026-06-07 08:38:20,640 | INFO |     OK (1952 chars)
+2026-06-07 08:38:23,642 | INFO |   -> Guardado: datos/angulos_signos.json
+2026-06-07 08:38:23,642 | INFO |   -> Resultados: 2 OK, 0 errores, 0 reintentos
+2026-06-07 08:38:23,642 | INFO | 
+============================================================
+2026-06-07 08:38:23,642 | INFO | [casas] modo=generar archivo=datos/casas_signos.json
+2026-06-07 08:38:23,642 | INFO | ============================================================
+2026-06-07 08:38:23,644 | INFO |   Modo batch: 2 entradas
+2026-06-07 08:38:23,644 | INFO |   [1/2] casa_1_aries ... 
+2026-06-07 08:38:25,383 | INFO |     OK (1707 chars)
+2026-06-07 08:38:28,383 | INFO |   [2/2] casa_1_tauro ... 
+2026-06-07 08:38:29,987 | INFO |     OK (1447 chars)
+2026-06-07 08:38:32,987 | INFO |   -> Guardado: datos/casas_signos.json
+2026-06-07 08:38:32,987 | INFO |   -> Resultados: 2 OK, 0 errores, 0 reintentos
+2026-06-07 08:38:32,987 | INFO | 
+============================================================
+2026-06-07 08:38:32,987 | INFO | [planetas_signos] modo=generar archivo=datos/planetas_signos.json
+2026-06-07 08:38:32,987 | INFO | ============================================================
+2026-06-07 08:38:32,990 | INFO |   Filtrados: 192/216 entradas a procesar
+2026-06-07 08:38:32,990 | INFO |   Modo batch: 2 entradas
+2026-06-07 08:38:32,990 | INFO |   [1/2] mercurio_en_aries ... 
+2026-06-07 08:38:34,800 | INFO |     OK (1757 chars)
+2026-06-07 08:38:37,800 | INFO |   [2/2] mercurio_en_tauro ... 
+2026-06-07 08:38:39,608 | INFO |     OK (1701 chars)
+2026-06-07 08:38:42,610 | INFO |   -> Guardado: datos/planetas_signos.json
+2026-06-07 08:38:42,611 | INFO |   -> Resultados: 2 OK, 0 errores, 0 reintentos
+2026-06-07 08:38:42,611 | INFO | 
+============================================================
+2026-06-07 08:38:42,611 | INFO | [planetas_casas] modo=generar archivo=datos/planetas_casas.json
+2026-06-07 08:38:42,611 | INFO | ============================================================
+2026-06-07 08:38:42,614 | INFO |   Filtrados: 72/216 entradas a procesar
+2026-06-07 08:38:42,614 | INFO |   Modo batch: 2 entradas
+2026-06-07 08:38:42,614 | INFO |   [1/2] ceres_en_casa_1 ... 
+2026-06-07 08:38:44,220 | INFO |     OK (1615 chars)
+2026-06-07 08:38:47,220 | INFO |   [2/2] ceres_en_casa_2 ... 
+2026-06-07 08:38:49,065 | INFO |     OK (1641 chars)
+2026-06-07 08:38:52,067 | INFO |   -> Guardado: datos/planetas_casas.json
+2026-06-07 08:38:52,067 | INFO |   -> Resultados: 2 OK, 0 errores, 0 reintentos
+2026-06-07 08:38:52,068 | INFO | 
+============================================================
+2026-06-07 08:38:52,068 | INFO |   RESUMEN FINAL: 12 OK, 0 errores
+2026-06-07 08:38:52,068 | INFO |   Log: logs/curacion_*.log
+2026-06-07 08:38:52,068 | INFO | ============================================================

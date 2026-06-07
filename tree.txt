@@ -1,11 +1,19 @@
 .
-├── Carta_Natal_LuisAsteroides11.txt
-├── Carta_Natal_LuisDiaz.txt
+├── Carta_Natal_Luis_prueba.txt
 ├── datos
+│   ├── angulos_signos.json
 │   ├── aspectos.json
+│   ├── aspectos_tompkins.json
 │   ├── casas_signos.json
 │   ├── planetas_casas.json
+│   ├── planetas_casas_sasportas.json
+│   ├── planetas_signos_goodman.json
 │   └── planetas_signos.json
+├── docs
+│   ├── carta-astral.png
+│   ├── las-doce-casas-howard-sasportas.pdf
+│   ├── Linda Goodman Signos solares.pdf
+│   └── Los-Aspectos-en-Astrologia-Sue-Tompkins.pdf
 ├── efemerides
 │   ├── estructura.txt
 │   ├── seas_18.se1
@@ -13,8 +21,49 @@
 │   ├── semo_18.se1
 │   └── sepl_18.se1
 ├── generador_carta.py
+├── main.py
+├── __pycache__
+│   ├── generador_carta.cpython-311.pyc
+│   └── main.cpython-311.pyc
 ├── read me
-│   └── read me.txt
+│   ├── mejoras_general.md
+│   ├── planes_ya_implementados
+│   │   ├── Mejoras_Generador.md
+│   │   ├── PLAN_IMPLEMENTACION.md
+│   │   └── session-ses_164f.md
+│   ├── read me.txt
+│   └── ruta_alimentacion_DB.md
+├── scripts
+│   ├── extraer_goodman.py
+│   ├── extraer_sasportas.py
+│   ├── importar_db.py
+│   ├── __init__.py
+│   └── ocr_tompkins.py
+├── session-ses_1632.md
+├── src
+│   ├── core
+│   │   ├── calculador.py
+│   │   ├── __init__.py
+│   │   ├── interprete.py
+│   │   └── __pycache__
+│   │       ├── calculador.cpython-311.pyc
+│   │       ├── calculador.cpython-314.pyc
+│   │       ├── __init__.cpython-311.pyc
+│   │       ├── __init__.cpython-314.pyc
+│   │       ├── interprete.cpython-311.pyc
+│   │       └── interprete.cpython-314.pyc
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-311.pyc
+│   │   └── __init__.cpython-314.pyc
+│   └── utils
+│       ├── __init__.py
+│       ├── __pycache__
+│       │   ├── __init__.cpython-311.pyc
+│       │   ├── __init__.cpython-314.pyc
+│       │   ├── renderers.cpython-311.pyc
+│       │   └── renderers.cpython-314.pyc
+│       └── renderers.py
 └── tree.txt
 
-4 directories, 14 files
+14 directories, 53 files
