@@ -1,7 +1,0 @@
-Dependencias:
-
-- Creé un entorno en conda utilizando python 3.11 para instalar de forma correcta flatlib con pip y pwisseph con conda install -c conda-forge pyswisseph
-
-
-
-Para los asteroides, Lilith y Quirón utilizo las efeméridas suizas descargadas de https://github.com/astrorigin/pyswisseph?tab=readme-ov-file

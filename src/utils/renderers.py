@@ -219,14 +219,14 @@ def generar_informe_md(carta, biblioteca, nombre="", fecha="", hora="", lat=0, l
         txt = biblioteca['planetas_casas'].get(f"{n_es}_en_casa_{casa}", "")
         grado = formatear_grados(p.signlon if hasattr(p, 'signlon') else p.lon % 30)
         sig_es = TRADUCCION_SIGNOS.get(p.sign.lower(), p.sign.lower())
-        lineas.append(f"**{n_es.upper()} en Casa {casa}** &mdash; {sig_es.capitalize()} {grado}")
+        lineas.append(f"**{n_es.upper()} en Casa {casa}** &mdash; {grado}")
         if txt:
             lineas.append(f"  {txt}")
         lineas.append("")
 
     lineas.append("---\n")
 
-    lineas.append("## Mision Evolutiva\n")
+    lineas.append("## Misión Evolutiva\n")
     for p in nodos:
         pid = str(getattr(p, 'id', ''))
         n_es = TRADUCCION_PLANETAS.get(pid, pid.lower())
@@ -240,10 +240,11 @@ def generar_informe_md(carta, biblioteca, nombre="", fecha="", hora="", lat=0, l
         lineas.append(f"### {label}")
         lineas.append(f"**{label.upper()} en {sig_es.capitalize()}** ({grado})")
         if txt_sig:
-            lineas.append(f"  *Por signo:* {txt_sig}")
+            lineas.append(f"  {txt_sig}")
+        lineas.append("")
         lineas.append(f"**{label.upper()} en Casa {casa}**")
         if txt_casa:
-            lineas.append(f"  *Por casa:* {txt_casa}")
+            lineas.append(f"  {txt_casa}")
         lineas.append("")
 
     lineas.append("---\n")
@@ -257,11 +258,13 @@ def generar_informe_md(carta, biblioteca, nombre="", fecha="", hora="", lat=0, l
         txt_sig = biblioteca['planetas_signos'].get(f"{n_es}_en_{sig_es}", "")
         txt_casa = biblioteca['planetas_casas'].get(f"{n_es}_en_casa_{casa}", "")
         grado = formatear_grados(p.signlon if hasattr(p, 'signlon') else p.lon % 30)
-        lineas.append(f"**{n_es.upper()} en {sig_es.capitalize()}** ({grado}) &mdash; Casa {casa}")
+        lineas.append(f"**{n_es.upper()} en {sig_es.capitalize()}** ({grado})")
         if txt_sig:
-            lineas.append(f"  *Signo:* {txt_sig}")
+            lineas.append(f"  {txt_sig}")
+        lineas.append("")
+        lineas.append(f"**{n_es.upper()} en Casa {casa}**")
         if txt_casa:
-            lineas.append(f"  *Casa:* {txt_casa}")
+            lineas.append(f"  {txt_casa}")
         lineas.append("")
 
     lineas.append("---\n")
@@ -269,7 +272,9 @@ def generar_informe_md(carta, biblioteca, nombre="", fecha="", hora="", lat=0, l
     lineas.append("## Dinamicas Internas (Aspectos)\n")
     aspectos = generar_aspectos(objetos_planetas, biblioteca)
     for asp in aspectos:
-        lineas.append(f"- **{asp['cuerpo1']}** en {asp['tipo']} a **{asp['cuerpo2']}**: {asp['texto']}")
+        lineas.append("")
+        lineas.append(f"**{asp['cuerpo1']}** en **{asp['tipo']}** a **{asp['cuerpo2']}**")
+        lineas.append(f"  {asp['texto']}")
 
     sintesis = generar_sintesis(objetos_planetas, carta)
     if sintesis:

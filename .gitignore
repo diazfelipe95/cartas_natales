@@ -1,5 +1,19 @@
-# ignora la carpeta
-
-CartasNatales_insumos/
-docs/
+# Entorno
 .env
+CartasNatales_insumos/
+
+# Documentos de referencia (PDFs grandes)
+docs/
+
+# Archivos generados / cartas de prueba
+Carta_Natal_*
+
+# Sesiones de subagentes
+session-ses_*
+logs/
+
+# Archivos del sistema
+.vscode/
+tree.txt
+__pycache__/
+*.pyc
